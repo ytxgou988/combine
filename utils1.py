@@ -3,16 +3,6 @@
 import os, sys, time, subprocess, re
 
 # recursive list all items by given directory
-def traversal(dir):
-    rc = []
-    for dirname, dirnames, filenames in os.walk(dir):
-        for subdirname in dirnames:
-            rc.append((os.path.join(dirname, subdirname), 'dir'))
-        for filename in filenames:
-            rc.append((os.path.join(dirname, filename), 'file'))
-    return rc
-
-# recursive list all png files by given directory
 def traversal_by_ext(dir, ext):
     rc = []
     for dirname, dirnames, filenames in os.walk(dir):
@@ -23,52 +13,19 @@ def traversal_by_ext(dir, ext):
             if extension.upper() == ext.upper(): rc.append(path)
     return rc
 
-def traversal_by_exts(dir, exts):
-    rc = []
-    for dirname, dirnames, filenames in os.walk(dir):
-        for filename in filenames:
-            path = os.path.join(dirname, filename)
-            path = path.replace(dir, '.')
-            file, extension = os.path.splitext(path)
-            E = []
-            for e in exts: E.append(e.upper())
-            if extension.upper() in E: rc.append(path)
-    return rc
-
-
 def rmdir(d):
-    if os.name in ['posix', 'mac']:
-        subprocess.call(['rm', '-rf', d])
-    elif os.name in ['nt']:
-        subprocess.call(["rmdir", "/S", "/Q", d], shell=True)
-    else:
-        print 'unsupport rmdir in %s' % os.name
+    subprocess.call(['rm', '-rf', d])
 
 
 def mkdir(d):
-    if os.name in ['posix', 'mac']:
-        subprocess.call(['mkdir', '-p', d])
-    elif os.name in ['nt']:
-        subprocess.call(["mkdir", "", d], shell=True)
-    else:
-        print 'unsupport rmdir in %s' % os.name
+    subprocess.call(['mkdir', '-p', d])
 
 
 def mvdir(d, x):
-    if os.name in ['posix', 'mac']:
-        subprocess.call(['mv', d, x])
-    elif os.name in ['nt']:
-        subprocess.call(["move", d, x], shell=True)
-    else:
-        print 'unsupport rmdir in %s' % os.name
+    subprocess.call(['mv', d, x])
 
 def tok():
-    if os.name in ['posix', 'mac']:
-        tok = '/'
-    elif os.name in ['nt']:
-        tok = '\\'
-    else:
-        tok = '/'
+    tok = '/'
     return tok
 
 
