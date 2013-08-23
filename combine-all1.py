@@ -18,7 +18,7 @@ if __name__ == '__main__':
     package = None
     if len(sys.argv) == 3 : package = sys.argv[2]
 
-    new_path = utils1.create_newpath(path, "all_combined")
+    new_path = utils1.create_newpath(path, package)
     if os.path.exists(new_path) : utils1.rmdir(new_path)
     utils1.mkdir(new_path)
 
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         print "failed to load ImageFont!!"
 
     for p in pkg.keys():
-        if package and package != p: continue
+        if package and ('./'+package) != p: continue
         print '%6d : %s' % (len(pkg[p].keys()), p)
         for file in pkg[p].keys():
             try:
