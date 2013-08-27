@@ -1,4 +1,5 @@
 *.pyc
 *.ttf
 *.cfg
-
+.swp
+.ttf
